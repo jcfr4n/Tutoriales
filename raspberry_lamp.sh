@@ -5,47 +5,26 @@ if [ "$(whoami)" != "root" ]; then
     exit
 fi
 
-# echo "deb http://mirrordirector.raspbian.org/raspbian/ stretch main contrib non-free rpi" > /etc/apt/sources.list.d/stretch.$
-# cat > /etc/apt/preferences << "EOF"
-# Package: *
-# Pin: release n=jessie
-# Pin-Priority: 600
-# EOF
+## Instalamos apache
+apt-get install apache2
 
-## Updating Raspberry
-apt-get update -y
-apt-get upgrade -y
-apt-get dist-upgrade -y
+## Instalar MariaDB
+apt-get install mariadb-server mariadb-client
 
-
-## Install apache
-apt-get install -y apache2
-
-## Installation of PHP 7
-apt-get install -y php php-mysql libapache2-mod-php
-
-mkdir /var/www/html
-chown www-data:www-data /var/www/html
-find /var/www/html -type d -print -exec chmod 775 {} \;
-find /var/www/html -type f -print -exec chmod 664 {} \;
-usermod -aG www-data pi
-cat > /var/www/html/index.php << "EOF"
-<?php phpinfo(); ?>
-EOF
-
-## Install MariaDB
-apt-get install -y mariadb-server mariadb-client
-#mysql -u user -p
-
-##Securing installation
+## Securizamos la instalación de MariDB
 mysql_secure_installation
 
-## Installation of phpmyadmin
-apt-get install phpmyadmin
+## 
+clear
+echo creamos un usuario nuevo para acceder al dashboard de phpmyadmin que instalaremos adelante
+read -p 'Nombre del usuario phpmyadmin: ' uservar
+read -sp 'Ingrese el password (la pantalla no mostrará variación): ' passvar
+echo
+echo Gracias.
+echo
+echo Ahora por favor ingrese el password de root de MariaDB para poder introducir estos datos,
+read -sp 'Contraseña de root: ' passvar1
+mysql -u root -p $passvar1 -e (CREATE USER $uservar IDENTIFIED BY "'"+$passvar+"'";CREATE DATABASE prueba;
+GRANT ALL PRIVILEGES ON prueba.* TO $uservar;FLUSH PRIVILEGES;mysql.out;)
 
-#change the root password
-
-
-/etc/init.d/apache2 restart
-
-## This script has been modified by JCFM
+## apt-get install phpmyadmin
