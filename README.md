@@ -25,3 +25,7 @@ Nota: Estar atentos soblre las interacciones que solicite el script.
 sudo bash uninstall_lamp.sh
 
 
+Observación: El usuario de phpmyadmin es "pi" y la clave la que cada cual haya
+elegido.
+
+
