@@ -4,9 +4,9 @@ Tutoriales sobre temas diversos.
 Los tutoriales aquí presentados son para uso libre de quien los necesite,
 así como cualquier código usado en este repositorio
 
-#########################################################################
+#######################################
 Instalación de pila LAMP en raspberry.
-#########################################################################
+#######################################
 
 Para la instalación se hará uso de la instrucción:
 
